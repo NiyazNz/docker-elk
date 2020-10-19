@@ -52,6 +52,20 @@ services:
     depends_on:
       - elasticsearch
 
+  fluent-bit:
+    image: fluent/fluent-bit:1.6.1
+    volumes:
+      - ./fluent_bit/config:/fluent-bit/etc
+    ports:
+      - 24224:24224
+      - 5140:5140/tcp
+      - 5140:5140/udp
+      - 2020:2020
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+
   kibana:
     build:
       context: kibana/
